@@ -166,83 +166,25 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
         height: auto !important;
     }
 
-    /* Mengubah wadah buku menjadi vertikal (ke bawah) agar tidak tergencet samping */
-    .book {
-        width: 100% !important;
-        max-width: 420px !important; /* Mengikuti lebar maksimal rata-rata layar HP */
-        height: auto !important;
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 20px !important; /* Kasih jarak antar halaman biar estetik */
-        perspective: none !important; /* Matikan efek 3D yang merusak ukuran di HP */
-    }
+/* ==========================================================================
+   ⚡ SETTINGAN AWAL MURNI BUKU 3D (GAS TANPA ATURAN DEVICE)
+   ========================================================================== */
+@media (max-width: 950px) { 
+    /* Di layar yang agak kecil, buku cuma mengecil proporsional tanpa mengubah bentuk */
+    .book { 
+        transform: scale(0.85); 
+    } 
+}
 
-    /* Memaksa setiap halaman menjadi full-width (tidak terbagi 50% kiri-kanan) */
-    .paper {
-        position: relative !important;
-        width: 100% !important;
-        height: 480px !important; /* Tinggi halaman di HP disesuaikan agar pas */
-        top: auto !important;
-        left: auto !important;
-        right: auto !important;
-        transform: none !important; /* Matikan animasi flip yang bikin gepeng di HP */
-        z-index: 1 !important;
-        cursor: default !important;
-    }
+@media (max-width: 768px) { 
+    /* Pas di HP, buku tetep teguh jadi buku 3D, cuma skalanya disesuaikan biar masuk frame */
+    .book { 
+        transform: scale(0.43); 
+    } 
+}
 
-    /* Menampilkan sisi depan dan belakang secara berurutan ke bawah */
-    .front-contents, .back-contents {
-        position: relative !important;
-        width: 100% !important;
-        height: 100% !important;
-        transform: none !important;
-        backface-visibility: visible !important;
-        margin-bottom: 20px !important;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.08) !important;
-    }
-
-    /* Sisi belakang yang tadinya terbalik kita normalkan kembali orientasinya */
-    .back-contents {
-        transform: rotateY(0deg) !important;
-    }
-
-    /* Menyesuaikan pinggiran kertas agar rapi menjadi satu kesatuan di HP */
-    .page-inside {
-        border-radius: 6px !important;
-        border: 1px solid rgba(0,0,0,0.05) !important;
-        padding: 25px 20px !important;
-    }
-    
-    .cover-front, .end-cover {
-        border-radius: 6px !important;
-    }
-
-    /* Menyesuaikan posisi tumpukan foto di halaman favorites agar tidak lari di HP */
-    .photo-album-area {
-        height: 240px !important;
-    }
-
-    .extra-photo {
-        width: 140px !important;
-        height: 140px !important;
-        top: 10px !important;
-        left: 20px !important;
-    }
-
-    .mini-overlap {
-        width: 100px !important;
-        height: 100px !important;
-        top: 80px !important;
-        left: 130px !important;
-    }
-    
-    .left-page .stamp {
-        bottom: 10px !important;
-        left: 32% !important;
-    }
-
-    /* Sembunyikan teks hint klik karena di HP tampilannya sudah terbuka semua tinggal scroll */
-    .hint {
-        display: none !important;
-    }
+@media (max-width: 400px) { 
+    .book { 
+        transform: scale(0.38); 
+    } 
 }
