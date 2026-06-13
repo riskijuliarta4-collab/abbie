@@ -119,12 +119,14 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 /* ==========================================================================
    ⚡ SYSTEM ALBUM FOTO FAVORITES (ANTI-CEBOL & ANTI-NIMPA)
    ========================================================================== */
+/* ==========================================================================
+   ⚡ FIX AKHIR: PAKSA FOTO JADI GEDE (ANTI-CEBOL & DETECT FULL RATIO)
+   ========================================================================== */
 .photo-album-area { 
     position: relative !important; 
     width: 100% !important; 
-    flex-grow: 1 !important; /* Otomatis ngambil sisa ruang kosong di bawah teks */
-    margin-top: 15px !important;
-    min-height: 240px !important;
+    height: 280px !important; 
+    margin-top: 10px !important;
 }
 
 .square-photo { 
@@ -137,41 +139,44 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
     object-fit: cover !important; 
 }
 
-/* Bunga Besar Utama - KEMBALI KENCENG UKURAN ASLI */
+/* Bunga Besar Utama - PAKSA GEDE MAKSIMAL (SCALE 1.4) */
 .extra-photo {
-    width: 175px !important; 
-    height: 175px !important;
-    padding: 8px 8px 28px 8px !important;
+    width: 170px !important;
+    height: 170px !important;
+    padding: 8px 8px 30px 8px !important;
     position: absolute !important;
-    bottom: 35px !important; /* Diikat dari bawah halaman biar gak lari ke teks */
+    top: 30px !important;
     left: 20px !important;
-    transform: rotate(4deg) !important;
+    /* Kita tembak pake scale(1.4) biar gambarnya melar besar dan kelihatan jelas */
+    transform: rotate(4deg) scale(1.4) !important;
+    transform-origin: center center !important;
     z-index: 5 !important;
-    box-shadow: 3px 5px 12px rgba(0,0,0,0.15) !important;
+    box-shadow: 3px 5px 15px rgba(0,0,0,0.2) !important;
 }
 
-/* Polaroid Bunga Kecil Tumpang Tindih - KEMBALI KENCENG UKURAN ASLI */
+/* Polaroid Bunga Kecil - IKUT DIPAKSA GEDE (SCALE 1.35) */
 .mini-overlap {
-    width: 120px !important; 
-    height: 120px !important;
-    padding: 6px 6px 20px 6px !important;
+    width: 115px !important;
+    height: 115px !important;
+    padding: 6px 6px 22px 6px !important;
     position: absolute !important;
-    bottom: 15px !important; /* Diikat dari bawah juga biar tumpukannya konsisten */
-    left: 145px !important;
-    transform: rotate(-8deg) !important; 
+    top: 110px !important; /* Diturunin biar gak numpuk nutupin bunga gedenya */
+    left: 170px !important; /* Digeser agak ke kanan luar biar dimensinya luas */
+    /* Kita tembak pake scale(1.35) biar ikut mengimbangi ukuran bunga utama */
+    transform: rotate(-8deg) scale(1.35) !important; 
+    transform-origin: center center !important;
     z-index: 10 !important; 
-    box-shadow: 5px 8px 18px rgba(0,0,0,0.25) !important;
+    box-shadow: 5px 8px 20px rgba(0,0,0,0.25) !important;
 }
 
-/* Posisi stempel pas di area paling bawah kertas */
+/* Amankan stempel agar nongkrong di paling bawah halaman */
 .left-page .stamp {
     position: absolute !important;
-    bottom: 15px !important;
+    bottom: 10px !important;
     left: 38% !important;
     z-index: 15 !important;
     margin: 0 !important;
 }
-
 /* Nota */
 .note-pad {
     background: #fffdf2; border-left: 3px solid #b5a48b; padding: 10px; margin: 10px 0;
