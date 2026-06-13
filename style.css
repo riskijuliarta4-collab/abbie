@@ -103,18 +103,34 @@ h2 { color: #5c4a37; font-size: 18px; border-bottom: 2px dashed #b5a48b; padding
 p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 
 /* Area Foto Tumpang Tindih */
-.photo-album-area { position: relative; width: 100%; height: 280px; margin-top: 10px; }
-.square-photo { background: #fff !important; box-sizing: border-box !important; }
+.photo-album-area {
+    position: relative;
+    width: 100%;
+    height: 280px;
+    margin-top: 25px !important; /* Ditinggiin biar makin jauh dari teks atas */
+}
 
 .extra-photo {
-    width: 170px !important; height: 170px !important; padding: 8px 8px 30px 8px !important;
-    position: absolute !important; top: 10px; left: 20px; transform: rotate(4deg) !important; z-index: 5;
+    width: 170px !important;
+    height: 170px !important;
+    padding: 8px 8px 30px 8px !important;
+    position: absolute !important;
+    top: 20px !important; /* Diturunin dikit dari atap wadahnya */
+    left: 20px;
+    transform: rotate(4deg) !important;
+    z-index: 5;
     box-shadow: 3px 5px 12px rgba(0,0,0,0.15) !important;
 }
 
 .mini-overlap {
-    width: 115px !important; height: 115px !important; padding: 6px 6px 22px 6px !important;
-    position: absolute !important; top: 85px; left: 150px; transform: rotate(-8deg) !important; z-index: 10;
+    width: 115px !important;
+    height: 115px !important;
+    padding: 6px 6px 22px 6px !important;
+    position: absolute !important;
+    top: 95px !important; /* Mengikuti turunnya foto bunga */
+    left: 150px;
+    transform: rotate(-8deg) !important;
+    z-index: 10;
     box-shadow: 5px 8px 18px rgba(0,0,0,0.25) !important;
 }
 .square-photo img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
