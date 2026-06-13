@@ -152,7 +152,18 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 .modal-box p { text-indent: 0; font-style: italic; background: #f5f0e1; padding: 12px; border-radius: 4px; border: 1px dashed #b5a48b; font-size: 12px;}
 .close-btn { background: #b5a48b; color: #fff; border: none; padding: 8px 18px; font-family: inherit; cursor: pointer; margin-top: 10px; }
 
-/* ⚡ SISTEM SKALA RESPONSIVE OTOMATIS AMAN UNTUK MOBILE */
-@media (max-width: 950px) { .book { transform: scale(0.8); } }
-@media (max-width: 768px) { .book { transform: scale(0.65); } }
-@media (max-width: 480px) { .book { transform: scale(0.42); } }
+/* ⚡ PENYESUAIAN SKALA HP BIAR PROPORSI KOTAKNYA PAS & GA GEPENG */
+@media (max-width: 950px) { 
+    .book { transform: scale(0.75); } 
+}
+@media (max-width: 768px) { 
+    body { height: auto; padding: 40px 0; overflow-y: auto; } /* Kasih izin scroll ke bawah di HP jika layarnya pendek */
+    .book { transform: scale(0.6); margin: auto; } 
+}
+@media (max-width: 480px) { 
+    body { height: auto; padding: 20px 0; overflow-y: auto; }
+    .book { transform: scale(0.4); margin: auto; } 
+}
+@media (max-width: 380px) { 
+    .book { transform: scale(0.35); } 
+}
