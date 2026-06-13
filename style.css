@@ -77,35 +77,41 @@ body {
 /* --- DEKORASI VINTAGE SCRAPBOOK --- */
 .cover-front { background: #8e7a63; width: 100%; height: 100%; border-radius: 0 5px 5px 0; box-shadow: inset 3px 0 10px rgba(0,0,0,0.2); }
 /* --- PERBAIKAN HALAMAN ENDING BIAR DI TENGAH --- */
+/* --- FIX FINAL ENDING DEAD-CENTER --- */
 .end-cover {
-    background: #76634e; 
-    width: 100% !important; 
-    height: 100% !important; 
-    position: relative !important; /* Biar dia tenang */
-    display: flex !important; 
-    flex-direction: column !important; 
-    justify-content: center !important; 
+    background: #76634e;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
     align-items: center !important;
-    text-align: center !important; /* Kunci tambahan biar teks gak lari */
-    color: #fff; 
-    border-radius: 0 5px 5px 0;
-    box-shadow: inset 3px 0 10px rgba(0,0,0,0.2);
+    color: #fff;
+    border-radius: 5px 0 0 5px !important; /* Lengkungan disesuaikan karena ini halaman kiri saat terbuka */
+    box-shadow: inset -3px 0 10px rgba(0,0,0,0.2);
     box-sizing: border-box !important;
-    margin: 0 !important; /* Hapus margin yang bikin dia lari */
     padding: 0 !important;
+    margin: 0 !important;
 }
 
 .leather-border {
-    border: 3px double #d2c4b1; 
-    width: 85% !important; /* Kita kasih lebar pasti 85% biar ga kepentok kiri */
-    height: 90% !important; 
-    display: flex !important; 
-    flex-direction: column !important; 
-    justify-content: center !important; 
+    border: 3px double #d2c4b1;
+    width: calc(100% - 40px) !important; /* Kunci margin seimbang kiri kanan 20px */
+    height: calc(100% - 40px) !important; /* Kunci margin seimbang atas bawah 20px */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
     align-items: center !important;
-    color: #fff; 
+    text-align: center !important;
+    color: #fff;
     box-sizing: border-box !important;
-    margin: auto !important; /* Margin auto ini kunci biar di tengah */
+    margin: auto !important;
+}
+
+.end-cover h1 {
+    font-size: 26px !important;
+    letter-spacing: 3px !important;
+    margin: 0 !important;
 }
 .end-cover h1 { font-size: 30px; letter-spacing: 4px; margin: 0; }
 
