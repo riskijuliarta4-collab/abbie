@@ -14,11 +14,14 @@ body {
 
 /* KUNCI UTAMA: Ukuran container induk dikunci mati selebar 900px (2 halaman terbuka) 
    Letaknya dead-center tepat di tengah-tengah layar monitor tanpa digeser satu pixel pun */
+/* Container Utama: Dikunci mati selebar 2 halaman terbuka (900px) 
+   dan diletakkan mutlak di tengah-tengah layar tanpa digeser satu pixel pun! */
 .book {
     position: relative;
     width: 900px;
     height: 550px;
     perspective: 2000px;
+    /* GAK BOLEH ADA TRANSLATE X DI SINI BIAR GA GEPENG / MIRING */
 }
 
 /* Setiap lembaran kertas posisinya berada di sebelah KANAN container utama 
@@ -29,7 +32,7 @@ body {
     right: 0; 
     width: 50%; /* Lebarnya pas setengah container (450px) */
     height: 100%;
-    transform-origin: left center; /* Engsel engsel perputaran buku tepat di tengah-tengah lipatan */
+    transform-origin: left center; /* Engsel perputaran buku tepat di tengah-tengah lipatan */
     transform-style: preserve-3d;
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
@@ -166,22 +169,33 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
         height: auto !important;
     }
 
-@media (max-width: 768px) {
-    /* 1. Reset supaya buku tidak dipaksa melebar */
+/* ==========================================================================
+   ⚡ KUNCI AMAN: BUKU TETAP CENTER DI LAPTOP & HP (ANTI-GEPENG)
+   ========================================================================== */
+@media (max-width: 950px) { 
+    /* Di monitor agak kecil, dia mengecil rapi di tengah */
+    .book { 
+        transform: scale(0.8); 
+    } 
+}
+
+@media (max-width: 768px) { 
     .scene {
         width: 100vw;
-        overflow-x: hidden; /* Biar gak ada scrollbar samping yang aneh */
+        overflow-x: hidden; /* Mencegah layar HP melar ke samping */
     }
+    .book { 
+        /* Di HP, kita kecilkan total jadi miniatur proporsional (43%) */
+        transform: scale(0.43) !important; 
+        transform-origin: top center !important; /* Kunci poros pengecilan di tengah atas layar */
+        margin-top: 30px !important;
+    } 
+}
 
-    .book {
-        /* 2. Pakai scale agar proporsi kotak tetap terjaga */
-        transform: scale(0.4) !important; 
-        transform-origin: top center !important; /* Biar bukunya tetep di atas tengah layar */
-        margin-top: 20px !important;
-    }
-
-    /* 3. Mencegah konten di dalam buku ikut gepeng */
-    .paper, .front-contents, .back-contents {
-        width: 100% !important;
-    }
+@media (max-width: 400px) { 
+    .book { 
+        /* Untuk HP dengan layar super kecil */
+        transform: scale(0.38) !important; 
+        transform-origin: top center !important;
+    } 
 }
