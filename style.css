@@ -12,8 +12,7 @@ body {
     display: flex; justify-content: center; align-items: center;
 }
 
-/* KUNCI UTAMA: Ukuran container induk dikunci mati selebar 900px (2 halaman terbuka) 
-   Letaknya dead-center tepat di tengah-tengah layar monitor tanpa digeser satu pixel pun */
+/* KUNCI UTAMA: Ukuran container induk dikunci mati selebar 900px (2 halaman terbuka) */
 .book {
     position: relative;
     width: 900px;
@@ -21,15 +20,14 @@ body {
     perspective: 2000px;
 }
 
-/* Setiap lembaran kertas posisinya berada di sebelah KANAN container utama 
-   sehingga saat cover tertutup, dia menutup area kanan container dengan pas */
+/* Setiap lembaran kertas posisinya berada di sebelah KANAN container utama */
 .paper {
     position: absolute;
     top: 0; 
     right: 0; 
     width: 50%; /* Lebarnya pas setengah container (450px) */
     height: 100%;
-    transform-origin: left center; /* Engsel engsel perputaran buku tepat di tengah-tengah lipatan */
+    transform-origin: left center;
     transform-style: preserve-3d;
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
@@ -78,7 +76,9 @@ body {
     background-image: url('https://www.transparenttextures.com/patterns/lined-paper.png');
     width: 100%; height: 100%;
     padding: 35px 30px; box-sizing: border-box;
-    position: relative; display: flex; flex-direction: column;
+    position: relative; 
+    display: flex !important; 
+    flex-direction: column !important;
 }
 
 /* Efek gradasi bayangan kedalaman lipatan kertas buku di bagian tengah */
@@ -117,13 +117,14 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 .hint-text { text-align: center; font-size: 10px; color: #8c7e6c; margin: 0; text-indent: 0;}
 
 /* ==========================================================================
-   ⚡ FIX AREA ALBUM FOTO FAVORITES (BIAR DOWN / GAK NIMPA TEKS ATAS)
+   ⚡ SYSTEM ALBUM FOTO FAVORITES (ANTI-CEBOL & ANTI-NIMPA)
    ========================================================================== */
 .photo-album-area { 
     position: relative !important; 
     width: 100% !important; 
-    height: 250px !important; 
-    margin-top: 140px !important; /* Dorong wadahnya jauh ke bawah dari paragraf teks */
+    flex-grow: 1 !important; /* Otomatis ngambil sisa ruang kosong di bawah teks */
+    margin-top: 15px !important;
+    min-height: 240px !important;
 }
 
 .square-photo { 
@@ -136,33 +137,33 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
     object-fit: cover !important; 
 }
 
-/* Bunga Besar Utama - BALIKIN KE UKURAN NORMAL */
+/* Bunga Besar Utama - KEMBALI KENCENG UKURAN ASLI */
 .extra-photo {
-    width: 170px !important; /* Balik ke 170px kayak awal */
-    height: 170px !important;
-    padding: 8px 8px 30px 8px !important;
+    width: 175px !important; 
+    height: 175px !important;
+    padding: 8px 8px 28px 8px !important;
     position: absolute !important;
-    top: 0px !important;
-    left: 20px !important; /* Balikin ke posisi awal */
+    bottom: 35px !important; /* Diikat dari bawah halaman biar gak lari ke teks */
+    left: 20px !important;
     transform: rotate(4deg) !important;
     z-index: 5 !important;
     box-shadow: 3px 5px 12px rgba(0,0,0,0.15) !important;
 }
 
-/* Polaroid Bunga Kecil Tumpang Tindih - BALIKIN KE UKURAN NORMAL */
+/* Polaroid Bunga Kecil Tumpang Tindih - KEMBALI KENCENG UKURAN ASLI */
 .mini-overlap {
-    width: 115px !important; /* Balik ke 115px kayak awal */
-    height: 115px !important;
-    padding: 6px 6px 22px 6px !important;
+    width: 120px !important; 
+    height: 120px !important;
+    padding: 6px 6px 20px 6px !important;
     position: absolute !important;
-    top: 85px !important; /* Balikin ke posisi awal */
-    left: 150px !important;
+    bottom: 15px !important; /* Diikat dari bawah juga biar tumpukannya konsisten */
+    left: 145px !important;
     transform: rotate(-8deg) !important; 
     z-index: 10 !important; 
     box-shadow: 5px 8px 18px rgba(0,0,0,0.25) !important;
 }
 
-/* Sedikit penyesuaian posisi stempel biar gak ketutupan */
+/* Posisi stempel pas di area paling bawah kertas */
 .left-page .stamp {
     position: absolute !important;
     bottom: 15px !important;
