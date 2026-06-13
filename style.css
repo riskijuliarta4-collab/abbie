@@ -12,30 +12,50 @@ body {
     display: flex; justify-content: center; align-items: center;
 }
 
-/* KUNCI UTAMA: Ukuran container induk dikunci mati selebar 900px (2 halaman terbuka) 
-   Letaknya dead-center tepat di tengah-tengah layar monitor tanpa digeser satu pixel pun */
-/* Container Utama: Dikunci mati selebar 2 halaman terbuka (900px) 
-   dan diletakkan mutlak di tengah-tengah layar tanpa digeser satu pixel pun! */
+/* Container Utama: Defaultnya seukuran 1 halaman (450px) pas ditutup awal.
+   Ini rahasia biar di HP dia gak bakal kegencet ato gepeng! */
 .book {
     position: relative;
-    width: 900px;
+    width: 450px; 
     height: 550px;
     perspective: 2000px;
-    /* GAK BOLEH ADA TRANSLATE X DI SINI BIAR GA GEPENG / MIRING */
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    margin: 0 auto; /* Otomatis mengunci posisi di dead-center layar */
 }
 
-/* Setiap lembaran kertas posisinya berada di sebelah KANAN container utama 
-   sehingga saat cover tertutup, dia menutup area kanan container dengan pas */
+/* 🌟 KUNCI UTAMA: Pas halaman dibuka, container membesar jadi 900px 
+   secara alami melebar ke kiri-kanan seimbang di tengah layar monitor/HP */
+.book.is-opened {
+    width: 900px;
+}
+
+/* Lembaran kertas posisinya numpuk rapi di dalam container */
 .paper {
     position: absolute;
     top: 0; 
-    right: 0; 
-    width: 50%; /* Lebarnya pas setengah container (450px) */
-    height: 100%;
-    transform-origin: left center; /* Engsel perputaran buku tepat di tengah-tengah lipatan */
+    left: 0; 
+    width: 100%; height: 100%;
+    transform-origin: left center; /* Engsel buku di sebelah kiri kertas */
     transform-style: preserve-3d;
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
+}
+
+/* Khusus lembaran isi kedua dan ketiga, kita letakkan di area kanan kontainer saat terbuka */
+.book.is-opened #paper2, 
+.book.is-opened #paper3 {
+    left: 50%;
+    width: 50%;
+}
+
+/* Khusus lembar cover depan (paper1), dia berdiri full di dalam container saat ditutup, 
+   dan pas di-flip dia melipat ke kiri */
+#paper1 {
+    width: 100%;
+}
+.book.is-opened #paper1 {
+    left: 50%;
+    width: 50%;
 }
 
 .front-contents, .back-contents {
@@ -46,12 +66,10 @@ body {
     box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
 }
 
-/* Sisi belakang dibalik secara horizontal */
 .back-contents {
     transform: rotateY(180deg);
 }
 
-/* Animasi buka lembaran kertas berputar halus ke sebelah kiri kontainer */
 .paper.flipped {
     transform: rotateY(-180deg);
 }
@@ -69,7 +87,6 @@ body {
     position: relative; display: flex; flex-direction: column;
 }
 
-/* Efek gradasi bayangan kedalaman lipatan kertas buku di bagian tengah */
 .left-page { border-radius: 5px 0 0 5px; border-right: 1px solid rgba(0,0,0,0.1); box-shadow: inset -15px 0 20px rgba(0,0,0,0.05); }
 .right-page { border-radius: 0 5px 5px 0; border-left: 1px solid rgba(255, 255, 255, 0.4); box-shadow: inset 15px 0 20px rgba(0,0,0,0.05); }
 
@@ -85,7 +102,24 @@ body {
 h2 { color: #5c4a37; font-size: 18px; border-bottom: 2px dashed #b5a48b; padding-bottom: 6px; margin-top: 0; text-align: center;}
 p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 
-/* Polaroid */
+/* Area Foto Tumpang Tindih */
+.photo-album-area { position: relative; width: 100%; height: 280px; margin-top: 10px; }
+.square-photo { background: #fff !important; box-sizing: border-box !important; }
+
+.extra-photo {
+    width: 170px !important; height: 170px !important; padding: 8px 8px 30px 8px !important;
+    position: absolute !important; top: 10px; left: 20px; transform: rotate(4deg) !important; z-index: 5;
+    box-shadow: 3px 5px 12px rgba(0,0,0,0.15) !important;
+}
+
+.mini-overlap {
+    width: 115px !important; height: 115px !important; padding: 6px 6px 22px 6px !important;
+    position: absolute !important; top: 85px; left: 150px; transform: rotate(-8deg) !important; z-index: 10;
+    box-shadow: 5px 8px 18px rgba(0,0,0,0.25) !important;
+}
+.square-photo img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+
+/* Polaroid Utama di Kanan */
 .polaroid-frame {
     background: #fff; width: 85%; height: 210px; margin: 10px auto;
     padding: 8px 8px 30px 8px; box-shadow: 3px 5px 12px rgba(0,0,0,0.12);
@@ -96,47 +130,11 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 .caption { text-align: center; font-size: 10px; color: #555; font-style: italic; margin-top: 5px; }
 .hint-text { text-align: center; font-size: 10px; color: #8c7e6c; margin: 0; text-indent: 0;}
 
-/* CSS Khusus Polaroid Mini Tumpang Tindih */
-.mini-overlap {
-    width: 45% !important;
-    height: 110px !important;
-    padding: 5px 5px 18px 5px !important;
-    position: absolute !important;
-    
-    /* Atur posisi tumpukannya di pojok kanan bawah area foto bunga */
-    bottom: 50px;
-    right: 25px;
-    
-    /* Kemiringannya dilawan biar silang estetik */
-    transform: rotate(-8deg) !important; 
-    
-    /* Kunci koordinat tumpukan di atas polaroid bunga */
-    z-index: 10; 
-    box-shadow: 2px 4px 10px rgba(0,0,0,0.2) !important;
-}
-
-.mini-overlap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Sedikit penyesuaian posisi stempel biar gak ketutupan */
-.left-page .stamp {
-    position: absolute;
-    bottom: 15px;
-    left: 35%;
-    z-index: 11;
-}
-
-/* Nota */
-.note-pad {
-    background: #fffdf2; border-left: 3px solid #b5a48b; padding: 10px; margin: 10px 0;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.05); transform: rotate(1deg); position: relative;
-}
+.note-pad { background: #fffdf2; border-left: 3px solid #b5a48b; padding: 10px; margin: 10px 0; box-shadow: 2px 2px 6px rgba(0,0,0,0.05); transform: rotate(1deg); position: relative; }
 .paper-clip { position: absolute; top: -8px; left: 15px; width: 12px; height: 30px; background: linear-gradient(#ccc, #999); border-radius: 4px; box-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
 .botanical { position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; background-image: url('https://www.transparenttextures.com/patterns/gray-floral.png'); opacity: 0.15; }
-.stamp { border: 3px double #a24b4b; color: #a24b4b; font-size: 11px; font-weight: bold; padding: 3px 8px; width: max-content; transform: rotate(-15deg); margin: 15px auto; opacity: 0.7; }
+.stamp { border: 3px double #a24b4b; color: #a24b4b; font-size: 11px; font-weight: bold; padding: 3px 8px; width: max-content; transform: rotate(-15deg); opacity: 0.7; }
+.left-page .stamp { position: absolute !important; bottom: 20px; left: 38%; z-index: 15; margin: 0 !important; }
 
 /* Amplop */
 .envelope-wrapper { margin: auto; text-align: center; cursor: pointer; transition: transform 0.2s;}
@@ -156,45 +154,22 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 .close-btn { background: #b5a48b; color: #fff; border: none; padding: 8px 18px; font-family: inherit; cursor: pointer; margin-top: 10px; }
 
 /* ==========================================================================
-   ⚡ KUNCI RESPONSIF OTOMATIS: MENANGGULANGI GEFENG DI HP 
+   ⚡ PENGATURAN SKALA UTK LAYAR HP (ANTI GEPENG 100%)
    ========================================================================== */
-@media (max-width: 768px) {
-    body {
-        height: auto !important;
-        overflow-y: auto !important; /* Mengizinkan scroll ke bawah di HP */
-        padding: 20px 10px !important;
-    }
-
-    .scene {
-        height: auto !important;
-    }
-
-/* ==========================================================================
-   ⚡ KUNCI AMAN: BUKU TETAP CENTER DI LAPTOP & HP (ANTI-GEPENG)
-   ========================================================================== */
-@media (max-width: 950px) { 
-    /* Di monitor agak kecil, dia mengecil rapi di tengah */
-    .book { 
-        transform: scale(0.8); 
-    } 
-}
-
 @media (max-width: 768px) { 
     .scene {
         width: 100vw;
-        overflow-x: hidden; /* Mencegah layar HP melar ke samping */
+        overflow-x: hidden;
     }
     .book { 
-        /* Di HP, kita kecilkan total jadi miniatur proporsional (43%) */
+        /* Di HP dia cuma mengecil proporsional tanpa penyet lebar sampingnya */
         transform: scale(0.43) !important; 
-        transform-origin: top center !important; /* Kunci poros pengecilan di tengah atas layar */
-        margin-top: 30px !important;
+        transform-origin: top center !important;
+        margin-top: 35px !important;
     } 
 }
-
 @media (max-width: 400px) { 
     .book { 
-        /* Untuk HP dengan layar super kecil */
         transform: scale(0.38) !important; 
         transform-origin: top center !important;
     } 
