@@ -12,50 +12,27 @@ body {
     display: flex; justify-content: center; align-items: center;
 }
 
-/* Container Utama: Defaultnya seukuran 1 halaman (450px) pas ditutup awal.
-   Ini rahasia biar di HP dia gak bakal kegencet ato gepeng! */
+/* KUNCI UTAMA: Ukuran container induk dikunci mati selebar 900px (2 halaman terbuka) 
+   Letaknya dead-center tepat di tengah-tengah layar monitor tanpa digeser satu pixel pun */
 .book {
     position: relative;
-    width: 450px; 
+    width: 900px;
     height: 550px;
     perspective: 2000px;
-    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    margin: 0 auto; /* Otomatis mengunci posisi di dead-center layar */
 }
 
-/* 🌟 KUNCI UTAMA: Pas halaman dibuka, container membesar jadi 900px 
-   secara alami melebar ke kiri-kanan seimbang di tengah layar monitor/HP */
-.book.is-opened {
-    width: 900px;
-}
-
-/* Lembaran kertas posisinya numpuk rapi di dalam container */
+/* Setiap lembaran kertas posisinya berada di sebelah KANAN container utama 
+   sehingga saat cover tertutup, dia menutup area kanan container dengan pas */
 .paper {
     position: absolute;
     top: 0; 
-    left: 0; 
-    width: 100%; height: 100%;
-    transform-origin: left center; /* Engsel buku di sebelah kiri kertas */
+    right: 0; 
+    width: 50%; /* Lebarnya pas setengah container (450px) */
+    height: 100%;
+    transform-origin: left center; /* Engsel engsel perputaran buku tepat di tengah-tengah lipatan */
     transform-style: preserve-3d;
     transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-}
-
-/* Khusus lembaran isi kedua dan ketiga, kita letakkan di area kanan kontainer saat terbuka */
-.book.is-opened #paper2, 
-.book.is-opened #paper3 {
-    left: 50%;
-    width: 50%;
-}
-
-/* Khusus lembar cover depan (paper1), dia berdiri full di dalam container saat ditutup, 
-   dan pas di-flip dia melipat ke kiri */
-#paper1 {
-    width: 100%;
-}
-.book.is-opened #paper1 {
-    left: 50%;
-    width: 50%;
 }
 
 .front-contents, .back-contents {
@@ -66,54 +43,35 @@ body {
     box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
 }
 
+/* Sisi belakang dibalik secara horizontal */
 .back-contents {
     transform: rotateY(180deg);
 }
 
+/* Animasi buka lembaran kertas berputar halus ke sebelah kiri kontainer */
 .paper.flipped {
     transform: rotateY(-180deg);
 }
 
 /* --- DEKORASI VINTAGE SCRAPBOOK --- */
 .cover-front { background: #8e7a63; width: 100%; height: 100%; border-radius: 0 5px 5px 0; box-shadow: inset 3px 0 10px rgba(0,0,0,0.2); }
-/* --- PERBAIKAN HALAMAN ENDING BIAR DI TENGAH --- */
-/* --- FIX FINAL ENDING DEAD-CENTER --- */
-.end-cover {
-    background: #76634e;
-    width: 100% !important;
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    color: #fff;
-    border-radius: 5px 0 0 5px !important; /* Lengkungan disesuaikan karena ini halaman kiri saat terbuka */
-    box-shadow: inset -3px 0 10px rgba(0,0,0,0.2);
+
+/* FIX COVERS AKHIR: Dikunci murni center kiri-kanan */
+.end-cover { 
+    background: #76634e; 
+    width: 100% !important; 
+    height: 100% !important; 
+    display: flex !important; 
+    flex-direction: column !important; 
+    justify-content: center !important; 
+    align-items: center !important; 
+    color: #fff; 
+    border-radius: 5px 0 0 5px; 
+    box-shadow: inset -3px 0 10px rgba(0,0,0,0.2); 
     box-sizing: border-box !important;
     padding: 0 !important;
     margin: 0 !important;
 }
-
-.leather-border {
-    border: 3px double #d2c4b1;
-    width: calc(100% - 40px) !important; /* Kunci margin seimbang kiri kanan 20px */
-    height: calc(100% - 40px) !important; /* Kunci margin seimbang atas bawah 20px */
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
-    color: #fff;
-    box-sizing: border-box !important;
-    margin: auto !important;
-}
-
-.end-cover h1 {
-    font-size: 26px !important;
-    letter-spacing: 3px !important;
-    margin: 0 !important;
-}
-.end-cover h1 { font-size: 30px; letter-spacing: 4px; margin: 0; }
 
 .page-inside {
     background: #f4eedb;
@@ -123,14 +81,23 @@ body {
     position: relative; display: flex; flex-direction: column;
 }
 
+/* Efek gradasi bayangan kedalaman lipatan kertas buku di bagian tengah */
 .left-page { border-radius: 5px 0 0 5px; border-right: 1px solid rgba(0,0,0,0.1); box-shadow: inset -15px 0 20px rgba(0,0,0,0.05); }
 .right-page { border-radius: 0 5px 5px 0; border-left: 1px solid rgba(255, 255, 255, 0.4); box-shadow: inset 15px 0 20px rgba(0,0,0,0.05); }
 
 .leather-border {
-    border: 3px double #d2c4b1; margin: 20px; height: calc(100% - 40px);
-    display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; box-sizing: border-box;
+    border: 3px double #d2c4b1; 
+    margin: 20px; 
+    height: calc(100% - 40px);
+    width: calc(100% - 40px) !important; /* Kunci lebar biar presisi seimbang tengah */
+    display: flex !important; 
+    flex-direction: column !important; 
+    justify-content: center !important; 
+    align-items: center !important; 
+    color: #fff; 
+    box-sizing: border-box !important;
 }
-.leather-border h1 { font-size: 26px; margin: 0; letter-spacing: 3px; }
+.leather-border h1 { font-size: 26px; margin: 0; letter-spacing: 3px; text-align: center; }
 .subtitle { font-size: 11px; color: #dfd7c3; font-style: italic; margin-top: 5px;}
 .vintage-divider { margin: 20px 0; color: #d2c4b1; }
 .date { font-size: 11px; }
@@ -138,52 +105,7 @@ body {
 h2 { color: #5c4a37; font-size: 18px; border-bottom: 2px dashed #b5a48b; padding-bottom: 6px; margin-top: 0; text-align: center;}
 p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 
-/* Area Foto Tumpang Tindih */
-/* Kita kasih jarak pembatas mutlak dari teks cerita */
-.photo-album-area {
-    position: relative;
-    width: 100%;
-    height: 320px; /* Ditambah tingginya biar space di bawah lega */
-    margin-top: 10px !important;
-}
-
-/* Foto Bunga Utama - KITA PAKSA TURUN KE BAWAH */
-.extra-photo {
-    width: 165px !important;
-    height: 165px !important;
-    padding: 8px 8px 30px 8px !important;
-    position: absolute !important;
-    top: 150px !important; /* Angka ini digedein biar fotonya turun jauh dari teks */
-    left: 20px !important;
-    transform: rotate(4deg) !important;
-    z-index: 5;
-    box-shadow: 3px 5px 12px rgba(0,0,0,0.15) !important;
-}
-
-/* Foto Mini Overlap - MENGIKUTI TURUNNYA FOTO BUNGA */
-.mini-overlap {
-    width: 110px !important;
-    height: 110px !important;
-    padding: 6px 6px 22px 6px !important;
-    position: absolute !important;
-    top: 220px !important; /* Ikut diturunin biar tetep nindih bagian bawah bunga */
-    left: 145px !important;
-    transform: rotate(-8deg) !important;
-    z-index: 10;
-    box-shadow: 5px 8px 18px rgba(0,0,0,0.25) !important;
-}
-
-/* Stempel PASSED diturunin ke paling bawah biar ga tabrakan */
-.left-page .stamp {
-    position: absolute !important;
-    bottom: 10px !important;
-    left: 38% !important;
-    z-index: 15;
-    margin: 0 !important;
-}
-.square-photo img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
-
-/* Polaroid Utama di Kanan */
+/* Polaroid Utama Kanan */
 .polaroid-frame {
     background: #fff; width: 85%; height: 210px; margin: 10px auto;
     padding: 8px 8px 30px 8px; box-shadow: 3px 5px 12px rgba(0,0,0,0.12);
@@ -194,11 +116,69 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 .caption { text-align: center; font-size: 10px; color: #555; font-style: italic; margin-top: 5px; }
 .hint-text { text-align: center; font-size: 10px; color: #8c7e6c; margin: 0; text-indent: 0;}
 
-.note-pad { background: #fffdf2; border-left: 3px solid #b5a48b; padding: 10px; margin: 10px 0; box-shadow: 2px 2px 6px rgba(0,0,0,0.05); transform: rotate(1deg); position: relative; }
+/* ==========================================================================
+   ⚡ FIX AREA ALBUM FOTO FAVORITES (BIAR DOWN / GAK NIMPA TEKS ATAS)
+   ========================================================================== */
+.photo-album-area { 
+    position: relative !important; 
+    width: 100% !important; 
+    height: 250px !important; 
+    margin-top: 140px !important; /* Dorong wadahnya jauh ke bawah dari paragraf teks */
+}
+
+.square-photo { 
+    background: #fff !important; 
+    box-sizing: border-box !important; 
+}
+.square-photo img { 
+    width: 100% !important; 
+    height: 100% !important; 
+    object-fit: cover !important; 
+}
+
+/* Bunga Besar Utama */
+.extra-photo {
+    width: 155px !important;
+    height: 155px !important;
+    padding: 8px 8px 25px 8px !important;
+    position: absolute !important;
+    top: 0px !important;
+    left: 10px !important;
+    transform: rotate(4deg) !important;
+    z-index: 5 !important;
+    box-shadow: 3px 5px 12px rgba(0,0,0,0.15) !important;
+}
+
+/* Polaroid Bunga Kecil Tumpang Tindih */
+.mini-overlap {
+    width: 110px !important;
+    height: 110px !important;
+    padding: 6px 6px 20px 6px !important;
+    position: absolute !important;
+    top: 55px !important; /* Berada sedikit di bawah bagian bunga utama */
+    left: 135px !important; /* Menindih silang ke arah kanan */
+    transform: rotate(-8deg) !important; 
+    z-index: 10 !important; 
+    box-shadow: 4px 6px 12px rgba(0,0,0,0.2) !important;
+}
+
+/* Sedikit penyesuaian posisi stempel biar gak ketutupan */
+.left-page .stamp {
+    position: absolute !important;
+    bottom: 15px !important;
+    left: 38% !important;
+    z-index: 15 !important;
+    margin: 0 !important;
+}
+
+/* Nota */
+.note-pad {
+    background: #fffdf2; border-left: 3px solid #b5a48b; padding: 10px; margin: 10px 0;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.05); transform: rotate(1deg); position: relative;
+}
 .paper-clip { position: absolute; top: -8px; left: 15px; width: 12px; height: 30px; background: linear-gradient(#ccc, #999); border-radius: 4px; box-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
 .botanical { position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; background-image: url('https://www.transparenttextures.com/patterns/gray-floral.png'); opacity: 0.15; }
-.stamp { border: 3px double #a24b4b; color: #a24b4b; font-size: 11px; font-weight: bold; padding: 3px 8px; width: max-content; transform: rotate(-15deg); opacity: 0.7; }
-.left-page .stamp { position: absolute !important; bottom: 20px; left: 38%; z-index: 15; margin: 0 !important; }
+.stamp { border: 3px double #a24b4b; color: #a24b4b; font-size: 11px; font-weight: bold; padding: 3px 8px; width: max-content; transform: rotate(-15deg); margin: 15px auto; opacity: 0.7; }
 
 /* Amplop */
 .envelope-wrapper { margin: auto; text-align: center; cursor: pointer; transition: transform 0.2s;}
@@ -217,24 +197,14 @@ p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
 .modal-box p { text-indent: 0; font-style: italic; background: #f5f0e1; padding: 12px; border-radius: 4px; border: 1px dashed #b5a48b; font-size: 12px;}
 .close-btn { background: #b5a48b; color: #fff; border: none; padding: 8px 18px; font-family: inherit; cursor: pointer; margin-top: 10px; }
 
-/* ==========================================================================
-   ⚡ PENGATURAN SKALA UTK LAYAR HP (ANTI GEPENG 100%)
-   ========================================================================== */
+/* ⚡ SISTEM SKALA RESPONSIVE OTOMATIS AMAN UNTUK MOBILE (ANTI-GEPENG) */
+@media (max-width: 950px) { 
+    .book { transform: scale(0.8); } 
+}
 @media (max-width: 768px) { 
-    .scene {
-        width: 100vw;
-        overflow-x: hidden;
-    }
-    .book { 
-        /* Di HP dia cuma mengecil proporsional tanpa penyet lebar sampingnya */
-        transform: scale(0.43) !important; 
-        transform-origin: top center !important;
-        margin-top: 35px !important;
-    } 
+    .scene { width: 100vw; overflow-x: hidden; }
+    .book { transform: scale(0.43) !important; transform-origin: top center !important; margin-top: 35px !important; } 
 }
 @media (max-width: 400px) { 
-    .book { 
-        transform: scale(0.38) !important; 
-        transform-origin: top center !important;
-    } 
+    .book { transform: scale(0.38) !important; transform-origin: top center !important; } 
 }
