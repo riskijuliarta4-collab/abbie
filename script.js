@@ -1,4 +1,4 @@
-// Mengunci urutan tumpukan z-index lembaran kertas dari awal biar aman
+const book = document.getElementById('scrapbook');
 const papers = [
     document.getElementById('paper1'),
     document.getElementById('paper2'),
@@ -12,20 +12,27 @@ function initBook() {
 }
 initBook();
 
-// Logika perputaran halaman murni tanpa utak-atik posisi wadah kontainer induk
 papers.forEach((paper, index) => {
     paper.addEventListener('click', (e) => {
-        // Blokir perputaran lembar halaman jika tombol swap galeri foto atau amplop pesan di-klik
         if (e.target.closest('#photo-click-area') || e.target.closest('#envelope')) return;
 
         if (paper.classList.contains('flipped')) {
-            // Jika halaman di-klik untuk ditutup kembali ke kanan
             paper.classList.remove('flipped');
             paper.style.zIndex = papers.length - index;
         } else {
-            // Jika halaman di-klik untuk dibuka berbalik ke kiri
             paper.classList.add('flipped');
             paper.style.zIndex = index + 1;
+        }
+
+        // --- SISTEM DINAMIS LEBAR CONTAINER BIAR KEEPIN CENTER & ANTI GEPENG ---
+        const flippedCount = papers.filter(p => p.classList.contains('flipped')).length;
+
+        if (flippedCount > 0 && flippedCount < papers.length) {
+            // Pas lagi dibuka membaca isi, container melebar jadi 900px di tengah
+            book.classList.add('is-opened');
+        } else {
+            // Pas ditutup total (cover depan ato cover belakang), balik jadi 450px biar ga penyet di HP
+            book.classList.remove('is-opened');
         }
     });
 });
