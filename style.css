@@ -76,7 +76,34 @@ body {
 
 /* --- DEKORASI VINTAGE SCRAPBOOK --- */
 .cover-front { background: #8e7a63; width: 100%; height: 100%; border-radius: 0 5px 5px 0; box-shadow: inset 3px 0 10px rgba(0,0,0,0.2); }
-.end-cover { background: #76634e; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; border-radius: 5px 0 0 5px; box-shadow: inset -3px 0 10px rgba(0,0,0,0.2); }
+/* --- PERBAIKAN HALAMAN ENDING BIAR DI TENGAH --- */
+.end-cover {
+    background: #76634e; 
+    width: 100%; 
+    height: 100%; 
+    display: flex !important; 
+    flex-direction: column !important; 
+    justify-content: center !important; 
+    align-items: center !important; /* Mengunci konten tepat di tengah-tengah halaman kanan */
+    color: #fff; 
+    border-radius: 0 5px 5px 0; /* Menyesuaikan lengkungan cover belakang */
+    box-shadow: inset 3px 0 10px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+}
+
+.leather-border {
+    border: 3px double #d2c4b1; 
+    margin: 20px; 
+    height: calc(100% - 40px);
+    width: calc(100% - 40px); /* Kunci lebar bingkai biar seimbang kiri-kanan */
+    display: flex !important; 
+    flex-direction: column !important; 
+    justify-content: center !important; 
+    align-items: center !important; /* Memaksa teks di dalam bingkai ikut center */
+    color: #fff; 
+    box-sizing: border-box;
+    text-align: center; /* Mengamankan teks multi baris agar tetap rapi di tengah */
+}
 .end-cover h1 { font-size: 30px; letter-spacing: 4px; margin: 0; }
 
 .page-inside {
