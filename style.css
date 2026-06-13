@@ -1,0 +1,158 @@
+body {
+    margin: 0; padding: 0;
+    background-color: #dfd7c3;
+    background-image: url('https://www.transparenttextures.com/patterns/cardboard-flat.png');
+    font-family: 'Courier New', Courier, monospace;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    height: 100vh; overflow: hidden;
+}
+
+.scene {
+    width: 100%;
+    display: flex; justify-content: center; align-items: center;
+}
+
+/* KUNCI UTAMA: Ukuran container induk dikunci mati selebar 900px (2 halaman terbuka) 
+   Letaknya dead-center tepat di tengah-tengah layar monitor tanpa digeser satu pixel pun */
+.book {
+    position: relative;
+    width: 900px;
+    height: 550px;
+    perspective: 2000px;
+}
+
+/* Setiap lembaran kertas posisinya berada di sebelah KANAN container utama 
+   sehingga saat cover tertutup, dia menutup area kanan container dengan pas */
+.paper {
+    position: absolute;
+    top: 0; 
+    right: 0; 
+    width: 50%; /* Lebarnya pas setengah container (450px) */
+    height: 100%;
+    transform-origin: left center; /* Engsel engsel perputaran buku tepat di tengah-tengah lipatan */
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+
+.front-contents, .back-contents {
+    position: absolute;
+    width: 100%; height: 100%;
+    backface-visibility: hidden;
+    box-sizing: border-box;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Sisi belakang dibalik secara horizontal */
+.back-contents {
+    transform: rotateY(180deg);
+}
+
+/* Animasi buka lembaran kertas berputar halus ke sebelah kiri kontainer */
+.paper.flipped {
+    transform: rotateY(-180deg);
+}
+
+/* --- DEKORASI VINTAGE SCRAPBOOK --- */
+.cover-front { background: #8e7a63; width: 100%; height: 100%; border-radius: 0 5px 5px 0; box-shadow: inset 3px 0 10px rgba(0,0,0,0.2); }
+.end-cover { background: #76634e; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; border-radius: 5px 0 0 5px; box-shadow: inset -3px 0 10px rgba(0,0,0,0.2); }
+.end-cover h1 { font-size: 30px; letter-spacing: 4px; margin: 0; }
+
+.page-inside {
+    background: #f4eedb;
+    background-image: url('https://www.transparenttextures.com/patterns/lined-paper.png');
+    width: 100%; height: 100%;
+    padding: 35px 30px; box-sizing: border-box;
+    position: relative; display: flex; flex-direction: column;
+}
+
+/* Efek gradasi bayangan kedalaman lipatan kertas buku di bagian tengah */
+.left-page { border-radius: 5px 0 0 5px; border-right: 1px solid rgba(0,0,0,0.1); box-shadow: inset -15px 0 20px rgba(0,0,0,0.05); }
+.right-page { border-radius: 0 5px 5px 0; border-left: 1px solid rgba(255, 255, 255, 0.4); box-shadow: inset 15px 0 20px rgba(0,0,0,0.05); }
+
+.leather-border {
+    border: 3px double #d2c4b1; margin: 20px; height: calc(100% - 40px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center; color: #fff; box-sizing: border-box;
+}
+.leather-border h1 { font-size: 26px; margin: 0; letter-spacing: 3px; }
+.subtitle { font-size: 11px; color: #dfd7c3; font-style: italic; margin-top: 5px;}
+.vintage-divider { margin: 20px 0; color: #d2c4b1; }
+.date { font-size: 11px; }
+
+h2 { color: #5c4a37; font-size: 18px; border-bottom: 2px dashed #b5a48b; padding-bottom: 6px; margin-top: 0; text-align: center;}
+p { color: #4a3f35; font-size: 12px; line-height: 1.6; text-indent: 15px;}
+
+/* Polaroid */
+.polaroid-frame {
+    background: #fff; width: 85%; height: 210px; margin: 10px auto;
+    padding: 8px 8px 30px 8px; box-shadow: 3px 5px 12px rgba(0,0,0,0.12);
+    transform: rotate(-2deg); transition: transform 0.3s; position: relative; box-sizing: border-box;
+}
+.polaroid-frame img { width: 100%; height: 100%; object-fit: cover; filter: sepia(0.2) contrast(0.95); }
+.tape { position: absolute; top: -10px; left: 32%; width: 80px; height: 18px; background: rgba(222, 184, 135, 0.4); transform: rotate(3deg); }
+.caption { text-align: center; font-size: 10px; color: #555; font-style: italic; margin-top: 5px; }
+.hint-text { text-align: center; font-size: 10px; color: #8c7e6c; margin: 0; text-indent: 0;}
+
+/* CSS Khusus Polaroid Mini Tumpang Tindih */
+.mini-overlap {
+    width: 45% !important;
+    height: 110px !important;
+    padding: 5px 5px 18px 5px !important;
+    position: absolute !important;
+    
+    /* Atur posisi tumpukannya di pojok kanan bawah area foto bunga */
+    bottom: 50px;
+    right: 25px;
+    
+    /* Kemiringannya dilawan biar silang estetik */
+    transform: rotate(-8deg) !important; 
+    
+    /* Kunci koordinat tumpukan di atas polaroid bunga */
+    z-index: 10; 
+    box-shadow: 2px 4px 10px rgba(0,0,0,0.2) !important;
+}
+
+.mini-overlap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Sedikit penyesuaian posisi stempel biar gak ketutupan */
+.left-page .stamp {
+    position: absolute;
+    bottom: 15px;
+    left: 35%;
+    z-index: 11;
+}
+
+/* Nota */
+.note-pad {
+    background: #fffdf2; border-left: 3px solid #b5a48b; padding: 10px; margin: 10px 0;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.05); transform: rotate(1deg); position: relative;
+}
+.paper-clip { position: absolute; top: -8px; left: 15px; width: 12px; height: 30px; background: linear-gradient(#ccc, #999); border-radius: 4px; box-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+.botanical { position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; background-image: url('https://www.transparenttextures.com/patterns/gray-floral.png'); opacity: 0.15; }
+.stamp { border: 3px double #a24b4b; color: #a24b4b; font-size: 11px; font-weight: bold; padding: 3px 8px; width: max-content; transform: rotate(-15deg); margin: 15px auto; opacity: 0.7; }
+
+/* Amplop */
+.envelope-wrapper { margin: auto; text-align: center; cursor: pointer; transition: transform 0.2s;}
+.envelope-wrapper:hover { transform: scale(1.05); }
+.envelope { font-size: 40px; animation: float 2.5s infinite ease-in-out; }
+.envelope-wrapper span { display: block; font-size: 10px; color: #7a6c58; margin-top: 3px; font-weight: bold;}
+@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+.hint { margin-top: 15px; color: #736453; font-size: 11px; text-align: center; }
+
+/* Pop-up Overlay */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; justify-content: center; align-items: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s; padding: 20px; box-sizing: border-box;}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
+.modal-box { background: #fbf9f3; width: 100%; max-width: 360px; padding: 20px; text-align: center; border: 1px solid #dcd1b4; box-shadow: 0 15px 40px rgba(0,0,0,0.3); position: relative; }
+.modal-tape { position: absolute; top: -10px; left: 35%; width: 90px; height: 20px; background: rgba(222, 184, 135, 0.5); }
+.modal-box p { text-indent: 0; font-style: italic; background: #f5f0e1; padding: 12px; border-radius: 4px; border: 1px dashed #b5a48b; font-size: 12px;}
+.close-btn { background: #b5a48b; color: #fff; border: none; padding: 8px 18px; font-family: inherit; cursor: pointer; margin-top: 10px; }
+
+/* ⚡ SISTEM SKALA RESPONSIVE OTOMATIS AMAN UNTUK MOBILE */
+@media (max-width: 950px) { .book { transform: scale(0.8); } }
+@media (max-width: 768px) { .book { transform: scale(0.65); } }
+@media (max-width: 480px) { .book { transform: scale(0.42); } }

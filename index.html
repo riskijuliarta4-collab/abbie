@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Scrapbook</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="scene">
+        <div class="book" id="scrapbook">
+            
+            <div class="paper" id="paper1" style="z-index: 3;">
+                <div class="front-contents">
+                    <div class="cover-front">
+                        <div class="leather-border">
+                            <h1>SCRAPBOOK</h1>
+                            <p class="subtitle">It's My Little Gift For You</p>
+                            <div class="vintage-divider">❖ ── ✦ ── ❖</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back-contents">
+                    <div class="page-inside left-page">
+                        <div class="botanical"></div>
+                        <h2>The Beginning</h2>
+                        <p>I Still Feel Lucky To Have You In My Life, And I Still think It's Was A Dream. And If This Is Really A Dream, I Don't Want To Wake Up From This Dream</p>
+                        <div class="paper-clip"></div>
+                        <div class="note-pad">
+                            <p style="text-indent:0; font-style:italic; margin:0; font-size: 11px;">"First impression kakak sebenernya ngeliat kamu udah gemes banget, takut saingan kakak banyak..."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper" id="paper2" style="z-index: 2;">
+                <div class="front-contents">
+                    <div class="page-inside right-page">
+                        <h2>Our Avatars</h2>
+                        <p class="hint-text">Aku Ga Jago Ngedit Sih... Fotonya Seadanya Aja Ya? Di Tap Fotonya Soal Nya Lebih Dari 1.</p>
+                        <div class="polaroid-frame" id="photo-click-area">
+                            <div class="tape"></div>
+                            <img id="gallery-img" src="JNJM.jfif" alt="Memories">
+                            <div class="caption" id="gallery-caption">Foto ini kamu gemes banget</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="back-contents">
+                    <div class="page-inside left-page">
+                        <h2>Favorites</h2>
+                        <p>You Will Always Be My Favorite Person. And I Give These Flowers to You, Hehehe.</p>
+
+                        <div class="polaroid-frame mini-overlap">
+                            <div class="tape" style="left: 25%; top: -10px; width: 50px; height: 12px;"></div>
+                            <img src="!! ‧₊˚☆ 🐶.jfif" alt="Mini Overlap Pic">
+                            <div class="caption" style="font-size: 8px; margin-top: 2px;">This Flower For You</div>
+                            </div>
+                        <div class="polaroid-frame extra-photo">
+                            <div class="tape" style="left: 35%; top: -8px;"></div>
+                            <img src="bunga.png" alt="Favorites Pic">
+                            <div class="caption">Beautiful Flower</div>
+                        </div>
+
+                        <div class="stamp" style="margin: 5px auto;">PASSED</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="paper" id="paper3" style="z-index: 1;">
+                <div class="front-contents">
+                    <div class="page-inside right-page">
+                        <h2>A Little Message</h2>
+                        <p>Asik Udah Liat Sampai Habis Ni Yaa, Sekarang Ada Pesan Lagi Nih.</p>
+                        <div class="envelope-wrapper" id="envelope">
+                            <div class="envelope">📩</div>
+                            <span>Buka Surat</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="back-contents">
+                    <div class="end-cover">
+                        <h1>Tamat Lah Sudah~</h1>
+                        <p style="text-align: center; text-indent: 0; color: #dfd7c3; font-size: 12px; margin-top: 10px;">Semoga Kita Bisa Bersama Terus.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal-box">
+            <div class="modal-tape"></div>
+            <h3>Hi Abbie</h3>
+            <p>"Hehehe kakak bener bener udah kehabisan kata kata buat kamu,kakak cuma bisa bilang terimakasih karena kamu udah mau nerima kakak, kakak harap kamu bener bener suka sama kakak nantinya ya. I Love You More Than Anything."</p>
+            <button class="close-btn" id="close-modal">Tutup</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
