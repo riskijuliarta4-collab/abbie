@@ -79,30 +79,33 @@ body {
 /* --- PERBAIKAN HALAMAN ENDING BIAR DI TENGAH --- */
 .end-cover {
     background: #76634e; 
-    width: 100%; 
-    height: 100%; 
+    width: 100% !important; 
+    height: 100% !important; 
+    position: relative !important; /* Biar dia tenang */
     display: flex !important; 
     flex-direction: column !important; 
     justify-content: center !important; 
-    align-items: center !important; /* Mengunci konten tepat di tengah-tengah halaman kanan */
+    align-items: center !important;
+    text-align: center !important; /* Kunci tambahan biar teks gak lari */
     color: #fff; 
-    border-radius: 0 5px 5px 0; /* Menyesuaikan lengkungan cover belakang */
+    border-radius: 0 5px 5px 0;
     box-shadow: inset 3px 0 10px rgba(0,0,0,0.2);
-    box-sizing: border-box;
+    box-sizing: border-box !important;
+    margin: 0 !important; /* Hapus margin yang bikin dia lari */
+    padding: 0 !important;
 }
 
 .leather-border {
     border: 3px double #d2c4b1; 
-    margin: 20px; 
-    height: calc(100% - 40px);
-    width: calc(100% - 40px); /* Kunci lebar bingkai biar seimbang kiri-kanan */
+    width: 85% !important; /* Kita kasih lebar pasti 85% biar ga kepentok kiri */
+    height: 90% !important; 
     display: flex !important; 
     flex-direction: column !important; 
     justify-content: center !important; 
-    align-items: center !important; /* Memaksa teks di dalam bingkai ikut center */
+    align-items: center !important;
     color: #fff; 
-    box-sizing: border-box;
-    text-align: center; /* Mengamankan teks multi baris agar tetap rapi di tengah */
+    box-sizing: border-box !important;
+    margin: auto !important; /* Margin auto ini kunci biar di tengah */
 }
 .end-cover h1 { font-size: 30px; letter-spacing: 4px; margin: 0; }
 
